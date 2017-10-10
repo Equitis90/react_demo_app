@@ -1,0 +1,43 @@
+.App {
+  margin: auto;
+}
+
+table, th, td {
+  border: 1px solid rgb(48, 48, 241);
+}
+
+td {
+  height: 50px;
+  width: 50px;
+  background-color: rgb(48, 48, 241);
+}
+
+#originTable {
+  margin: auto;
+  display: inline-block;
+}
+
+.add {
+  border: none;
+}
+
+.add td {
+  background-color: rgb(231, 137, 28);
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 150%;
+}
+
+.add.column {
+  display: inline;
+}
+
+.add.row {
+  clear: both;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
