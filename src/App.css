@@ -2,7 +2,7 @@
   margin: auto;
 }
 
-table, th, td {
+td {
   border: 1px solid rgb(48, 48, 241);
 }
 
@@ -19,22 +19,18 @@ td {
 
 .add {
   border: none;
-}
-
-.add td {
   background-color: rgb(231, 137, 28);
-  border: none;
   color: white;
   text-align: center;
   font-size: 150%;
 }
 
-.add.column {
-  display: inline;
-}
-
-.add.row {
-  clear: both;
+.hidden {
+  /*display: hidden;*/
+  background-color: rgb(194, 37, 17);
+  color: white;
+  text-align: center;
+  font-size: 150%;
 }
 
 @keyframes App-logo-spin {
