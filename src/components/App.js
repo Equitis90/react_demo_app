@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Cell from './Cell'
 import '../App.css';
 
 class App extends Component {
@@ -6,47 +7,41 @@ class App extends Component {
     super(props);
 
     this.state = {
-      table: [...Array(5).keys()].map(i => Array(5).fill('')),
+      table: [...Array(4).keys()].map(i => Array(4).fill('')),
       row: null,
       column: null
     };
   }
 
-  createCell(row, column) {
-    if(row === 0 && column === 0) {
+  createCell(row, column, type) {
+    if(type === 'delete_row') {
+      let visibility = this.state.row === row ? 'visible' : 'hidden'
+      if(this.state.table.length === 1) visibility = 'hidden'
       return(
-        <td className='hidden' key={`${row}_${column}`} style={{visibility: 'hidden'}}
-        ></td>
+        <Cell className='remove' onClick={this.removeRow.bind(this, row)} 
+          visibility={visibility} value='-'>
+        </Cell>
       )
-    } else if(row === 0 || column === 0) {
-      let fOnClick = null;
-      let visibility = (this.state.row === row || this.state.column === column) ? 'visible' : 'hidden'
-      if(row === 0) {
-        fOnClick = this.removeColumn.bind(this, column)
-        if(this.state.table[0].length === 2) visibility = 'hidden'
-      } else {
-        fOnClick = this.removeRow.bind(this, row)
-        if(this.state.table.length === 2) visibility = 'hidden'
-      }
+    } else if(type === 'delete_column') {
+      let visibility = this.state.column === column ? 'visible' : 'hidden'
+      if(this.state.table[0].length === 1) visibility = 'hidden'
       return(
-        <td className='hidden' onClick={fOnClick}
-          style={{visibility: visibility}}
-          key={`${row}_${column}`}
-        > - </td>
+        <Cell key={`remove_column_${column}`} className='remove' onClick={this.removeColumn.bind(this, column)} 
+          visibility={visibility} value='-'>
+        </Cell>
       )
-    } else {
+    } else {  
       return(
-        <td className='bordered' onMouseEnter={this.removeButtonShow.bind(this, row, column)}
-        
-          key={`${row}_${column}`}
-        ></td>
+        <Cell key={`${row}_${column}`} className='bordered' onMouseEnter={this.removeButtonShow.bind(this, row, column)} 
+          value=''>
+        </Cell>
       )
     }
   }
 
   addRow() {
     let rows = this.state.table.length - 1;
-    let columns = this.state.table[rows - 1].length;
+    let columns = this.state.table[rows].length;
     let newTable = this.state.table.map(function(arr) {
       return arr.slice();
     });
@@ -97,48 +92,114 @@ class App extends Component {
 
   render() {
     let rows = [];
-    let table_size = this.state.table.length;
+    let del_column_cells = [];
+    let del_row_cells = [];
+    let empty_tds = [];
+    let empty_trs = [];
+    let table_length = this.state.table[0].length - 1
+    let table_heigth = this.state.table.length - 1
+
+    for(let i = 0; i < table_length; i++) {
+      empty_tds.push(
+        <td key={`empty_td_${i}`} className='add hidden'>
+        </td>
+      ) 
+    }
+
+    for(let i = 0; i < table_heigth; i++) {
+      empty_trs.push(
+        <tr key={`empty_tr_${i}`}>
+          <td key={`empty_tr_td_${i}`} className='add hidden'></td>
+        </tr> 
+      ) 
+    }
 
     this.state.table.forEach(function(row, row_number) { 
       let columns = []
       row.forEach(function(column, column_number) {
         columns.push(
-          this.createCell(row_number, column_number)  
+          this.createCell(row_number, column_number, null)  
         )
-        if(column_number === row.length - 1 && row_number === 1) {
-          columns.push(
-            <td key='add_column_cell' className='add' onClick={this.addColumn.bind(this)}
-            onMouseEnter={this.removeButtonHide.bind(this)}>
-            +
-            </td>
+        if(row_number === 0){
+          del_column_cells.push(
+            this.createCell(row_number, column_number, 'delete_column')  
           )
         }
       }, this);
-
       rows.push(
         <tr key={row_number}>
           { columns }
         </tr>
       )
-      
-      if(row_number === table_size - 1) {
-        rows.push(
-        <tr key='add_row_row'>
-          <td className='hidden' style={{visibility: 'hidden'}}></td>
-          <td key='add_row_cell' className='add' onClick={this.addRow.bind(this)}
-          onMouseEnter={this.removeButtonHide.bind(this)}>
-          +
-          </td>
-        </tr>
-        )
-      }
+      del_row_cells.push(
+        <tr key={`del_${row_number}`}>
+          {this.createCell(row_number, 0, 'delete_row')}
+        </tr> 
+      )
     }, this);
-    
-    return (
+
+    return ( 
       <div className="App">
-        <table ref='table' id='originTable' onMouseLeave={this.removeButtonHide.bind(this)}>
+        <table id='mainTable' cellSpacing="0" onMouseLeave={this.removeButtonHide.bind(this)}>
           <tbody>
-            { rows }
+            <tr>
+              <td className='hidden'>
+              </td>
+              <td>
+                <table className='del_table_columns' cellPadding='0'>
+                  <tbody>
+                    <tr>
+                      { del_column_cells }
+                    </tr>  
+                  </tbody>
+                </table>
+              </td>  
+            </tr>
+            <tr>
+              <td className='hidden'>
+                <table className='del_table_rows' cellSpacing="2">
+                    <tbody>
+                      { del_row_cells }
+                    </tbody>
+                </table>     
+              </td>
+              <td>
+                <table id='originTable'>
+                  <tbody>
+                    { rows }
+                  </tbody>
+                </table>
+              </td>
+              <td>
+                <table cellSpacing="0" className='add_column_table'>
+                  <tbody>
+                    <tr>
+                      <Cell className='add' onClick={this.addColumn.bind(this)} 
+                        onMouseEnter={this.removeButtonHide.bind(this)} value='+'>
+                      </Cell>
+                    </tr>  
+                      { empty_trs }
+                  </tbody>
+                </table>  
+              </td>        
+            </tr>
+            <tr>
+              <td className='hidden'>
+              </td>
+              <td>
+                <table cellSpacing="0" className='add_row_table'>
+                  <tbody>
+                    <tr>
+                      <td key='add_row_cell' className='add' onClick={this.addRow.bind(this)}
+                      onMouseEnter={this.removeButtonHide.bind(this)}>
+                      +
+                      </td>
+                      { empty_tds }
+                    </tr>  
+                  </tbody>
+                </table>
+              </td>        
+            </tr>
           </tbody>  
         </table> 
       </div>

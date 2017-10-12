@@ -1,39 +1,67 @@
-.App {
-  margin: auto;
+#root {
+  overflow-x:auto;
+  overflow-y:hidden;
+  white-space:nowrap;
 }
 
-td {
+#originTable {
   border: 1px solid rgb(48, 48, 241);
 }
 
-td {
+.add, .remove {
+  color: white;
+  text-align: center;
+  font-size: 150%;
+  height: 50px;
+  width: 50px;
+  -ms-transition: opacity 1s ease-in-out;
+  -webkit-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+  min-width: 50px;
+}
+
+.add {
+  background-color: rgb(231, 137, 28);
+}
+
+.remove {
+  background-color: rgb(194, 37, 17);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.bordered {
   height: 50px;
   width: 50px;
   background-color: rgb(48, 48, 241);
 }
 
-#originTable {
+.del_table_columns {
+  width: 100%;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.del_table_rows {
+  height: 100%;
+}
+
+#mainTable {
+  border-collapse: collapse;
   margin: auto;
-  display: inline-block;
 }
 
-.add {
-  border: none;
-  background-color: rgb(231, 137, 28);
-  color: white;
-  text-align: center;
-  font-size: 150%;
+.add_row_table {
+  margin-left: 4px;
 }
 
-.hidden {
-  /*display: hidden;*/
-  background-color: rgb(194, 37, 17);
-  color: white;
-  text-align: center;
-  font-size: 150%;
+.add_column_table {
+  margin-bottom: 6px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.add:hover, .remove:hover {
+  filter: alpha(opacity=50);
+  opacity: 0.5;
 }
