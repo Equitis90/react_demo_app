@@ -146,7 +146,7 @@ class App extends Component {
               <td className='hidden'>
               </td>
               <td>
-                <table className='del_table_columns' cellPadding='0'>
+                <table className='del_table_columns' cellSpacing='0'>
                   <tbody>
                     <tr>
                       { del_column_cells }

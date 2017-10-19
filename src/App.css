@@ -14,10 +14,11 @@
   font-size: 150%;
   height: 50px;
   width: 50px;
+  min-height: 50px;
+  min-width: 50px;
   -ms-transition: opacity 1s ease-in-out;
   -webkit-transition: opacity 1s ease-in-out;
   transition: opacity 1s ease-in-out;
-  min-width: 50px;
 }
 
 .add {
@@ -35,6 +36,8 @@
 .bordered {
   height: 50px;
   width: 50px;
+  min-height: 50px;
+  min-width: 50px;
   background-color: #4dabe4;
 }
 
