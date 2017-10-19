@@ -146,7 +146,7 @@ class App extends Component {
               <td className='hidden'>
               </td>
               <td>
-                <table className='del_table_columns' cellSpacing='0'>
+                <table className='del_table_columns' cellSpacing='2'>
                   <tbody>
                     <tr>
                       { del_column_cells }
@@ -164,7 +164,7 @@ class App extends Component {
                 </table>     
               </td>
               <td>
-                <table id='originTable'>
+                <table id='originTable' cellSpacing="2">
                   <tbody>
                     { rows }
                   </tbody>
