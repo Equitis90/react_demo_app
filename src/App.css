@@ -5,7 +5,7 @@
 }
 
 #originTable {
-  border: 1px solid rgb(48, 48, 241);
+  border: 1px solid #4dabe4;
 }
 
 .add, .remove {
@@ -21,11 +21,11 @@
 }
 
 .add {
-  background-color: rgb(231, 137, 28);
+  background-color: #f1a417;
 }
 
 .remove {
-  background-color: rgb(194, 37, 17);
+  background-color: #b00100;
 }
 
 .hidden {
@@ -35,17 +35,19 @@
 .bordered {
   height: 50px;
   width: 50px;
-  background-color: rgb(48, 48, 241);
+  background-color: #4dabe4;
 }
 
 .del_table_columns {
   width: 100%;
   padding-left: 1px;
   padding-right: 1px;
+  margin-bottom: -2px;
 }
 
 .del_table_rows {
   height: 100%;
+  margin-right: -2px;
 }
 
 #mainTable {
@@ -54,7 +56,7 @@
 }
 
 .add_row_table {
-  margin-left: 4px;
+  margin-left: 3px;
 }
 
 .add_column_table {
@@ -63,5 +65,5 @@
 
 .add:hover, .remove:hover {
   filter: alpha(opacity=50);
-  opacity: 0.5;
+  opacity: 0.7;
 }
